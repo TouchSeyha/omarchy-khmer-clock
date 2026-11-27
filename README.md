@@ -2,6 +2,8 @@
 
 An [Omarchy](https://omarchy.org) clock and calendar bar widget that highlights **Cambodia public holidays** directly on the calendar grid and lists what's happening each month—in **English**, **Khmer**, or **both**.
 
+![Omarchy Khmer Clock preview](preview.png)
+
 Holidays are fetched automatically from Google Calendar's public Cambodia holidays `.ics` feed and cached locally, so you never have to update dates manually each year (including lunar holidays like Khmer New Year, Visak Bochea, Pchum Ben, and Water Festival).
 
 ## Features
@@ -11,6 +13,12 @@ Holidays are fetched automatically from Google Calendar's public Cambodia holida
 - Shows a clean **Cambodia Holidays** summary for the month you're viewing (and shows the next upcoming holiday when a month has none)
 - Instant language switcher (`EN` / `ខ្មែរ` / `EN · ខ្មែរ`) in the panel header (or press `L`)
 - Offline-friendly: caches the `.ics` feed in `~/.cache/omarchy-khmer-clock/cambodia-holidays.ics` and refreshes automatically once every 7 days
+
+## Requirements
+
+- Omarchy shell (Quickshell / QtQuick)
+- `python3` (`/usr/bin/python3`, standard library only — no third-party Python packages)
+- Optional: a Khmer-capable font (such as `noto-fonts`) to render Khmer holiday names
 
 ## Install
 
@@ -25,6 +33,21 @@ Then replace `omarchy.clock` with `touchseyha.khmer-clock` in `~/.config/omarchy
 ```bash
 omarchy plugin update touchseyha.khmer-clock
 omarchy restart shell
+```
+
+## Remove
+
+First restore `omarchy.clock` (or remove `touchseyha.khmer-clock`) in `~/.config/omarchy/shell.json`, then uninstall the plugin:
+
+```bash
+omarchy plugin remove touchseyha.khmer-clock
+omarchy restart shell
+```
+
+To also remove the cached holiday feed:
+
+```bash
+rm -rf ~/.cache/omarchy-khmer-clock
 ```
 
 ## Configuration
