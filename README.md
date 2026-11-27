@@ -1,8 +1,8 @@
-# Omarchy Khmer Clock
+# Khmer Calendar
 
-An [Omarchy](https://omarchy.org) clock and calendar bar widget that highlights **Cambodia public holidays** directly on the calendar grid and lists what's happening each month—in **English**, **Khmer**, or **both**.
+An [Omarchy](https://omarchy.org) Khmer calendar and bar clock widget that highlights **Cambodia public holidays** directly on the calendar grid and lists what's happening each month—in **English**, **Khmer**, or **both**.
 
-![Omarchy Khmer Clock preview](preview.png)
+![Khmer Calendar preview](preview.png)
 
 Holidays are fetched automatically from Google Calendar's public Cambodia holidays `.ics` feed and cached locally, so you never have to update dates manually each year (including lunar holidays like Khmer New Year, Visak Bochea, Pchum Ben, and Water Festival).
 

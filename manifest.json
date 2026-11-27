@@ -1,11 +1,11 @@
 {
   "schemaVersion": 1,
   "id": "touchseyha.khmer-clock",
-  "name": "Khmer Clock",
-  "version": "1.0.0",
+  "name": "Khmer Calendar",
+  "version": "1.0.1",
   "author": "TouchSeyha",
   "license": "MIT",
-  "description": "Omarchy clock and calendar popup with automatic Cambodia public holidays in English and Khmer.",
+  "description": "Omarchy Khmer calendar popup and bar clock with automatic Cambodia public holidays in English and Khmer.",
   "kinds": [
     "bar-widget"
   ],
@@ -13,8 +13,8 @@
     "barWidget": "BarWidget.qml"
   },
   "barWidget": {
-    "displayName": "Khmer Clock",
-    "description": "Clock and calendar popup highlighting Cambodia public holidays.",
+    "displayName": "Khmer Calendar",
+    "description": "Khmer calendar popup and bar clock highlighting Cambodia public holidays.",
     "category": "Time",
     "allowMultiple": false,
     "defaultSection": "center"
