@@ -1,0 +1,22 @@
+{
+  "clock.toggleFormat": "Left click: calendar · Right click: format · Middle click: timezone",
+  "clock.dayMonthFormat": "MMMM d",
+  "clock.monthYear": "%1 %2",
+  "clock.backToToday": "Back to today",
+  "clock.weekShort": "W",
+  "clock.startWeeksOn": "Start weeks on %1",
+  "clock.previousMonth": "Previous month",
+  "clock.nextMonth": "Next month",
+  "clock.born": "BORN",
+  "clock.year": "Year",
+  "clock.liveTo": "TO",
+  "clock.life": "LIFE",
+  "holidays.heading": "CAMBODIA HOLIDAYS",
+  "holidays.noneThisMonth": "No Cambodia holidays this month",
+  "holidays.next": "Next: %1 · %2",
+  "holidays.loading": "Loading Cambodia holidays…",
+  "holidays.today": "TODAY",
+  "holidays.observance": "Observance",
+  "holidays.cycleLanguage": "Switch holiday language (EN / Khmer / Both)",
+  "holidays.refresh": "Refresh Cambodia holidays"
+}
