@@ -60,6 +60,13 @@ Panel {
   readonly property color contentForeground: bar ? bar.foreground : Commons.Color.foreground
   readonly property string contentFontFamily: bar ? bar.fontFamily : Style.font.family
 
+  // Soft, eye-friendly weekend & holiday palette (adapts to dark/light themes).
+  readonly property bool isDarkTheme: (Commons.Color.background.r * 0.299 + Commons.Color.background.g * 0.587 + Commons.Color.background.b * 0.114) < 0.5
+  readonly property color saturdayColor: isDarkTheme ? "#f6b97c" : "#c96b20"
+  readonly property color sundayColor: isDarkTheme ? "#f58c97" : "#c94452"
+  readonly property color holidayBgColor: isDarkTheme ? "#ffa047" : "#ffad5c"
+  readonly property color holidayLabelColor: isDarkTheme ? "#ff8792" : "#c43848"
+
   readonly property int cellWidth: Style.space(52)
   readonly property int cellHeight: Style.space(34)
   readonly property int cellSpacing: Style.space(2)
@@ -607,7 +614,11 @@ Panel {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     text: root.weekdayLabel(modelData)
-                    color: Qt.darker(root.contentForeground, 1.5)
+                    color: modelData === 0
+                      ? Util.alpha(root.sundayColor, 0.88)
+                      : (modelData === 6
+                          ? Util.alpha(root.saturdayColor, 0.88)
+                          : Qt.darker(root.contentForeground, 1.5))
                     font.family: root.contentFontFamily
                     font.pixelSize: Style.font.caption
                     font.letterSpacing: 1
@@ -655,16 +666,19 @@ Panel {
                       height: root.cellHeight
                       radius: Style.cornerRadius
                       color: {
-                        if (isSelected) return Util.alpha(Commons.Color.accent, 0.26)
-                        if (isHoliday && dayMouse.containsMouse) return Util.alpha(Commons.Color.accent, 0.22)
-                        if (isHoliday && modelData.inMonth) return Util.alpha(Commons.Color.accent, isPublic ? 0.14 : 0.08)
-                        if (isHoliday) return Util.alpha(Commons.Color.accent, 0.05)
+                        if (isSelected) return Util.alpha(root.holidayBgColor, root.isDarkTheme ? 0.34 : 0.40)
+                        if (isHoliday && dayMouse.containsMouse) return Util.alpha(root.holidayBgColor, root.isDarkTheme ? 0.28 : 0.34)
+                        if (isHoliday && modelData.inMonth) return Util.alpha(root.holidayBgColor, isPublic ? (root.isDarkTheme ? 0.22 : 0.28) : (root.isDarkTheme ? 0.12 : 0.16))
+                        if (isHoliday) return Util.alpha(root.holidayBgColor, 0.08)
                         return "transparent"
                       }
-                      border.width: (modelData.today || isSelected) ? Style.spacing.hairline : 0
-                      border.color: isSelected
-                        ? Commons.Color.accent
-                        : Style.normalBorderFor(root.contentForeground, Commons.Color.accent)
+                      border.width: (modelData.today || isSelected || (isHoliday && isPublic && modelData.inMonth)) ? Style.spacing.hairline : 0
+                      border.color: {
+                        if (isSelected) return Util.alpha(root.holidayBgColor, 0.9)
+                        if (modelData.today) return Style.normalBorderFor(root.contentForeground, Commons.Color.accent)
+                        if (isHoliday && isPublic && modelData.inMonth) return Util.alpha(root.holidayBgColor, root.isDarkTheme ? 0.32 : 0.45)
+                        return "transparent"
+                      }
 
                       Text {
                         textFormat: Text.PlainText
@@ -672,10 +686,15 @@ Panel {
                         anchors.verticalCenterOffset: dayCell.isHoliday ? -Style.space(2) : 0
                         text: Commons.I18n.formatNumber(modelData.day)
                         color: {
-                          if (dayCell.isHoliday && modelData.inMonth) return Commons.Color.accent
-                          if (dayCell.isHoliday) return Util.alpha(Commons.Color.accent, 0.55)
-                          if (modelData.inMonth)
-                            return modelData.weekend ? Qt.darker(root.contentForeground, 1.45) : root.contentForeground
+                          if (dayCell.isHoliday && modelData.inMonth) return root.holidayLabelColor
+                          if (dayCell.isHoliday) return Util.alpha(root.holidayLabelColor, 0.52)
+                          if (modelData.inMonth) {
+                            if (modelData.weekday === 0) return root.sundayColor
+                            if (modelData.weekday === 6) return root.saturdayColor
+                            return root.contentForeground
+                          }
+                          if (modelData.weekday === 0) return Util.alpha(root.sundayColor, 0.38)
+                          if (modelData.weekday === 6) return Util.alpha(root.saturdayColor, 0.38)
                           return Qt.darker(root.contentForeground, 2.2)
                         }
                         font.family: root.contentFontFamily
@@ -693,8 +712,8 @@ Panel {
                         width: Style.space(4)
                         height: width
                         radius: width / 2
-                        color: Commons.Color.accent
-                        opacity: modelData.inMonth ? (dayCell.isPublic ? 0.95 : 0.55) : 0.35
+                        color: root.holidayLabelColor
+                        opacity: modelData.inMonth ? (dayCell.isPublic ? 0.92 : 0.55) : 0.35
                       }
 
                       MouseArea {
@@ -943,7 +962,7 @@ Panel {
                     height: holidayRowLayout.implicitHeight + Style.space(8)
                     radius: Style.cornerRadius
                     color: isHighlighted
-                      ? Util.alpha(Commons.Color.accent, 0.18)
+                      ? Util.alpha(root.holidayBgColor, root.isDarkTheme ? 0.20 : 0.26)
                       : (rowMouse.containsMouse
                           ? Qt.rgba(root.contentForeground.r, root.contentForeground.g, root.contentForeground.b, 0.06)
                           : "transparent")
@@ -964,7 +983,7 @@ Panel {
                         text: root.holidayRangeLabel(modelData)
                         color: modelData.kind === "observance"
                           ? Qt.darker(root.contentForeground, 1.4)
-                          : Commons.Color.accent
+                          : root.holidayLabelColor
                         font.family: root.contentFontFamily
                         font.pixelSize: Style.font.bodySmall
                         font.bold: true
@@ -1007,7 +1026,7 @@ Panel {
                           ? strings.t("holidays.today")
                           : strings.t("holidays.observance")
                         color: holidayRow.isTodayHoliday
-                          ? Commons.Color.accent
+                          ? root.holidayLabelColor
                           : Qt.darker(root.contentForeground, 1.6)
                         font.family: root.contentFontFamily
                         font.pixelSize: Style.font.caption
