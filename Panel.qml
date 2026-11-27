@@ -40,7 +40,7 @@ Panel {
   readonly property int lifeDonePercent: Model.lifeProgressPercent(age, lifeExpectancy)
   property bool editingLife: false
 
-  readonly property string holidayLanguage: Model.normalizeHolidayLanguage(setting("holidayLanguage", "en"))
+  readonly property string holidayLanguage: Model.normalizeHolidayLanguage(setting("holidayLanguage", "both"))
   readonly property bool autoRefreshHolidays: setting("autoRefresh", true) !== false
   readonly property var holidaysByDate: holidayService ? holidayService.holidaysByDate : ({})
   readonly property bool holidaysLoading: holidayService ? holidayService.loading : false

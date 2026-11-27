@@ -26,7 +26,11 @@ Holidays are fetched automatically from Google Calendar's public Cambodia holida
 omarchy plugin add https://github.com/TouchSeyha/omarchy-khmer-clock.git --enable
 ```
 
-Then replace `omarchy.clock` with `touchseyha.khmer-clock` in `~/.config/omarchy/shell.json` (in `bar.layout.center`).
+Then replace `omarchy.clock` with `touchseyha.khmer-clock` in `~/.config/omarchy/shell.json` (in `bar.layout.center`) and reload the shell:
+
+```bash
+omarchy restart shell
+```
 
 ## Update
 
@@ -60,14 +64,14 @@ All settings are optional and live on the widget entry in `~/.config/omarchy/she
   "format": "h:mm AP",
   "formatAlt": "d MMMM 'W'ww yyyy",
   "verticalFormat": "HH\n—\nmm",
-  "holidayLanguage": "en",
+  "holidayLanguage": "both",
   "autoRefresh": true
 }
 ```
 
 | Option | Values | Default | Description |
 | --- | --- | --- | --- |
-| `holidayLanguage` | `"en"`, `"km"`, `"both"` | `"en"` | Language for holiday names (also switchable live in the panel) |
+| `holidayLanguage` | `"en"`, `"km"`, `"both"` | `"both"` | Language for holiday names (also switchable live in the panel) |
 | `autoRefresh` | `true`, `false` | `true` | Automatically refresh the cached feed every 7 days when stale; set `false` for cache-only mode (manual refresh button still works) |
 
 ## Keyboard shortcuts (when popup is open)

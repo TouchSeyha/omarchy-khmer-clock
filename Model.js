@@ -320,7 +320,7 @@ function normalizeHolidayLanguage(value) {
   var text = String(value === undefined || value === null ? "" : value)
     .replace(/^\s+|\s+$/g, "")
     .toLowerCase()
-  return HOLIDAY_LANGUAGES.indexOf(text) !== -1 ? text : "en"
+  return HOLIDAY_LANGUAGES.indexOf(text) !== -1 ? text : "both"
 }
 
 function nextHolidayLanguage(current) {

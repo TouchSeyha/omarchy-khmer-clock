@@ -102,7 +102,7 @@ test("monthGrid attaches holiday metadata onto day cells", () => {
 
 test("language normalization, cycling, and formatting", () => {
   assert.equal(Model.normalizeHolidayLanguage("KM"), "km")
-  assert.equal(Model.normalizeHolidayLanguage("invalid"), "en")
+  assert.equal(Model.normalizeHolidayLanguage("invalid"), "both")
   assert.equal(Model.nextHolidayLanguage("en"), "km")
   assert.equal(Model.nextHolidayLanguage("km"), "both")
   assert.equal(Model.nextHolidayLanguage("both"), "en")
